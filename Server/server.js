@@ -4,7 +4,6 @@ var io = require('socket.io')(server);
 console.log("Server started!");
 
 app.get("/", function(req, res) {
-  //res.sendFile(__dirname + '/index.html');
   res.json({a:1});
 });
 
@@ -13,10 +12,6 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + '/game.html');
 });*/
 
-/*var players;
-if (!players) {
-  players = {};
-}*/
 var players = {};
 
 io.on('connection', function(socket) {
@@ -27,6 +22,7 @@ io.on('connection', function(socket) {
     });
   }
 
+  // Add the new player
   players[socket.id] = {'keysDown':{}};
   var info = players[socket.id];
 
