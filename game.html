@@ -3,9 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>8-bit b-ball</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="socket.io.js"></script>
     <script>
-      var socket = io();
+      var socket = io('http://localhost:3000');
+      window.onload = function() {
+        var keysDown = [];
+        window.onkeydown = function(e) {
+          if (keysDown.indexOf(e.keyCode) < 0) {
+            keysDown.push(e.keyCode);
+            console.log("local log of keydown");
+            socket.emit('some message', 'server log of keydown');
+          }
+        }
+        window.onkeyup = function(e) {
+          var index = keysDown.indexOf(e.keyCode);
+          if (index >= 0) {
+            keysDown.splice(index, 1);
+            console.log("local log of keyup");
+            socket.emit('some message', 'server log of keyup');
+          }
+        }
+      }
     </script>
   </head>
   <body>
