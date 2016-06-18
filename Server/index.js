@@ -13,14 +13,37 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + '/game.html');
 });*/
 
+/*var players;
+if (!players) {
+  players = {};
+}*/
 var players = {};
 
 io.on('connection', function(socket) {
-  var info = players[socket.id] = {'keysDown':{}};
-  //console.log(io.sockets.clients());
-  //console.log(socket.id + " connected");
+  // Let all other players know that this player joined
+  for (var playerKey in players) {
+    io.sockets.connected[playerKey].emit('player join', {
+      'id': socket.id,
+    });
+  }
+
+  players[socket.id] = {'keysDown':{}};
+  var info = players[socket.id];
+
+  // Let the new player know about all the other players
+  for (var playerKey in players) {
+    io.sockets.connected[socket.id].emit('player join', {
+      'id': playerKey,
+    });
+  }
+
   socket.on('disconnect', function() {
-    //console.log(this.id + " disconnected");
+    delete players[this.id];
+    for (var playerKey in players) {
+      io.sockets.connected[playerKey].emit('player leave', {
+        'id': this.id,
+      });
+    }
   });
 
   socket.on('key down', function(keyCode) {

@@ -22,14 +22,15 @@ window.onload = function() {
   // Messages from server
   var players = {};
   socket.on('player join', function(playerInfo) {
+    console.log(playerInfo.id);
     players[playerInfo.id] = playerInfo;
   });
   socket.on('player leave', function(playerInfo) {
-    delete playerInfo[playerInfo.id];
+    delete players[playerInfo.id];
   });
 
 
   setInterval(function() {
     document.getElementById("display").innerHTML = JSON.stringify(players);
-  }, 100);
+  }, 1000);
 }
