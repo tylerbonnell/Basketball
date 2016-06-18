@@ -1,3 +1,7 @@
+var CANVAS_WIDTH = 200;
+var CANVAS_HEIGHT = 80;
+var players = {};
+
 window.onload = function() {
   var socket = io('http://localhost:3000');
 
@@ -20,17 +24,33 @@ window.onload = function() {
   };
 
   // Messages from server
-  var players = {};
   socket.on('player join', function(playerInfo) {
-    console.log(playerInfo.id);
     players[playerInfo.id] = playerInfo;
+    addElement(playerInfo.id, "Images/player.png", playerInfo.x, playerInfo.y);
   });
   socket.on('player leave', function(playerInfo) {
     delete players[playerInfo.id];
   });
-
+  socket.on('update player', function(playerInfo) {
+    for (var playerAttr in playerInfo) {
+      players[playerInfo.id][playerAttr] = playerInfo[playerAttr];
+    }
+    document.getElementById(playerInfo.id).style.left = 100 / CANVAS_WIDTH * playerInfo.x + "%";
+  });
 
   setInterval(function() {
-    document.getElementById("display").innerHTML = JSON.stringify(players);
-  }, 1000);
+    document.getElementById("players").innerHTML = JSON.stringify(players);
+  }, 100);
 }
+
+function addElement(id, url, x, y) {
+  var img = new Image();
+  img.onload = function() {
+    players[id].width = 100 / CANVAS_WIDTH * this.width + "%";
+    players[id].x = x;
+    players[id].y = y;
+    document.getElementById("display").innerHTML += "<img src=\"" + url + "\" id=\"" + id + "\" width=\"" + players[id].width + "\"/>";
+  }
+  img.src = url;
+}
+

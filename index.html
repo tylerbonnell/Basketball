@@ -5,9 +5,23 @@
     <title>8-bit b-ball</title>
     <script src="socket.io.js"></script>
     <script src="client.js"></script>
+    <style media="screen">
+      img {
+        image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+        image-rendering: -moz-crisp-edges;          /* Firefox                        */
+        image-rendering: -o-crisp-edges;            /* Opera                          */
+        image-rendering: -webkit-optimize-contrast; /* Safari */
+        image-rendering: pixelated;                 /* Chrome */
+        image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+        -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+        margin: 0;
+        position: absolute;
+      }
+    </style>
   </head>
-  <body>
+  <body style="margin:0;">
     <div>welcome to the game</div></br>
-    <div id="display"></div>
+    <div id="players"></div>
+    <div id="display" style="background-color:green;"></div>
   </body>
 </html>
