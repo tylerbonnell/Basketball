@@ -43,7 +43,6 @@ io.on('connection', function(socket) {
 
   socket.on('key down', function(keyCode) {
     players[socket.id].keysDown[keyCode] = null;
-    players[socket.id].info.x++;
     socket.emit('update player', players[socket.id].info);
   });
 
@@ -55,10 +54,11 @@ io.on('connection', function(socket) {
 // GAME LOOP
 setInterval(function() {
   for (var playerKey in players) {
-    players[playerKey].info.x += (68 in players[playerKey].keysDown) ? 1 : 0;
-    players[playerKey].info.x -= (65 in players[playerKey].keysDown) ? 1 : 0;
-    players[playerKey].info.y += (83 in players[playerKey].keysDown) ? 1 : 0;
-    players[playerKey].info.y -= (87 in players[playerKey].keysDown) ? 1 : 0;
+    var moveDist = (16 in players[playerKey].keysDown) ? 5 : 2;
+    players[playerKey].info.x += (68 in players[playerKey].keysDown) ? moveDist : 0;
+    players[playerKey].info.x -= (65 in players[playerKey].keysDown) ? moveDist : 0;
+    players[playerKey].info.y += (83 in players[playerKey].keysDown) ? moveDist : 0;
+    players[playerKey].info.y -= (87 in players[playerKey].keysDown) ? moveDist : 0;
     io.emit('update player', players[playerKey].info);
   }
 }, 1000/24);

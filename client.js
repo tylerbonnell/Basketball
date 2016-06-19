@@ -8,7 +8,7 @@ window.onload = function() {
   var socket = io('http://localhost:3000');
 
   // Player input
-  var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d'};
+  var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d', 16:'shift'};
   var keysDown = {};
   window.onkeydown = function(e) {
     if (!trackedKeys[e.keyCode]) return;
