@@ -1,8 +1,10 @@
 var CANVAS_WIDTH = 200;
 var CANVAS_HEIGHT = 80;
+var PIXEL_SIZE;
 var players = {};
 
 window.onload = function() {
+  PIXEL_SIZE = window.innerWidth / CANVAS_WIDTH;
   var socket = io('http://localhost:3000');
 
   // Player input
@@ -32,10 +34,13 @@ window.onload = function() {
     delete players[playerInfo.id];
   });
   socket.on('update player', function(playerInfo) {
+    if (!document.getElementById(playerInfo.id)) return;
+    console.log(playerInfo);
     for (var playerAttr in playerInfo) {
       players[playerInfo.id][playerAttr] = playerInfo[playerAttr];
     }
-    document.getElementById(playerInfo.id).style.left = 100 / CANVAS_WIDTH * playerInfo.x + "%";
+    document.getElementById(playerInfo.id).style.left = playerInfo.x * PIXEL_SIZE + "px";
+    document.getElementById(playerInfo.id).style.top = playerInfo.y * PIXEL_SIZE + "px";
   });
 
   setInterval(function() {
@@ -46,7 +51,7 @@ window.onload = function() {
 function addElement(id, url, x, y) {
   var img = new Image();
   img.onload = function() {
-    players[id].width = 100 / CANVAS_WIDTH * this.width + "%";
+    players[id].width = this.width * PIXEL_SIZE + "px";
     players[id].x = x;
     players[id].y = y;
     document.getElementById("display").innerHTML += "<img src=\"" + url + "\" id=\"" + id + "\" width=\"" + players[id].width + "\"/>";

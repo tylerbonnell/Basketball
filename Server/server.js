@@ -52,13 +52,14 @@ io.on('connection', function(socket) {
   });
 });
 
+// GAME LOOP
 setInterval(function() {
   for (var playerKey in players) {
     players[playerKey].info.x += (68 in players[playerKey].keysDown) ? 1 : 0;
     players[playerKey].info.x -= (65 in players[playerKey].keysDown) ? 1 : 0;
     players[playerKey].info.y += (83 in players[playerKey].keysDown) ? 1 : 0;
     players[playerKey].info.y -= (87 in players[playerKey].keysDown) ? 1 : 0;
-    io.sockets.connected[playerKey].emit('update player', players[playerKey].info);
+    io.emit('update player', players[playerKey].info);
   }
 }, 1000/24);
 
