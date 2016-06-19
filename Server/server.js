@@ -54,7 +54,9 @@ io.on('connection', function(socket) {
 // GAME LOOP
 setInterval(function() {
   for (var playerKey in players) {
-    var moveDist = (16 in players[playerKey].keysDown) ? 5 : 2;
+    var moveDist = 2;
+    var sprintMultiplier = 2;
+    if (16 in players[playerKey].keysDown) moveDist *= sprintMultiplier;
     players[playerKey].info.x += (68 in players[playerKey].keysDown) ? moveDist : 0;
     players[playerKey].info.x -= (65 in players[playerKey].keysDown) ? moveDist : 0;
     players[playerKey].info.y += (83 in players[playerKey].keysDown) ? moveDist : 0;

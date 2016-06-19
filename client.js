@@ -1,4 +1,4 @@
-var CANVAS_WIDTH = 200;
+var CANVAS_WIDTH = 350;
 var CANVAS_HEIGHT = 80;
 var PIXEL_SIZE;
 var players = {};
