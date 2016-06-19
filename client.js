@@ -39,8 +39,7 @@ window.onload = function() {
     for (var playerAttr in playerInfo) {
       players[playerInfo.id][playerAttr] = playerInfo[playerAttr];
     }
-    document.getElementById(playerInfo.id).style.left = playerInfo.x * PIXEL_SIZE + "px";
-    document.getElementById(playerInfo.id).style.top = playerInfo.y * PIXEL_SIZE + "px";
+    setPos(playerInfo.id, playerInfo.x, playerInfo.y)
   });
 
   setInterval(function() {
@@ -55,7 +54,12 @@ function addElement(id, url, x, y) {
     players[id].x = x;
     players[id].y = y;
     document.getElementById("display").innerHTML += "<img src=\"" + url + "\" id=\"" + id + "\" width=\"" + players[id].width + "\"/>";
+    setPos(id, x, y);
   }
   img.src = url;
 }
 
+function setPos(id, x, y) {
+  document.getElementById(id).style.left = x * PIXEL_SIZE + "px";
+  document.getElementById(id).style.top = y * PIXEL_SIZE + "px";
+}
