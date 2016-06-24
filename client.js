@@ -2,18 +2,22 @@ var CANVAS_WIDTH = 350;
 var CANVAS_HEIGHT = 80;
 var PIXEL_SIZE;
 var players = {};
+var socket;
 
 window.onload = function() {
   document.getElementById("connect").onclick = function() {
-    document.getElementById("mainmenu").style.display = "none";
-    start(document.getElementById("connect").text);
+    document.getElementById("connecting").style.display = "block";
+    serverAddress = document.getElementById("connect").text || 'http://localhost:3000';
+    socket = io(serverAddress);
+    socket.on('connect', function() {
+      document.getElementById("mainmenu").style.display = "none";
+      start();
+    });
   }
 }
 
-function start(serverAddress) {
-  serverAddress = serverAddress || 'http://localhost:3000';
+function start() {
   PIXEL_SIZE = window.innerWidth / CANVAS_WIDTH;
-  var socket = io(serverAddress);
 
   // Player input
   var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d', 16:'shift'};

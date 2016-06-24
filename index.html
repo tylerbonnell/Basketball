@@ -21,15 +21,18 @@
         margin: 0;
         font-family: monospace;
       }
-      #mainmenu {
-        padding: 1em;
-      }
+      #mainmenu { padding: 1em; }
+      #connect { margin-bottom: .5em; }
+      #connecting { display: none; }
     </style>
   </head>
   <body>
     <div id="mainmenu">
       <input type="text" placeholder="SERVER URL"/><button id="connect">CONNECT</button>
-    </div></br>
+      <div id="connecting">
+        CONNECTING...
+      </div>
+    </div>
     <div id="players"></div>
     <div id="display" style="background-color:green;"></div>
   </body>
