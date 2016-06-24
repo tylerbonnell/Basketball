@@ -7,20 +7,29 @@
     <script src="client.js"></script>
     <style media="screen">
       img {
-        image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
-        image-rendering: -moz-crisp-edges;          /* Firefox                        */
-        image-rendering: -o-crisp-edges;            /* Opera                          */
-        image-rendering: -webkit-optimize-contrast; /* Safari */
-        image-rendering: pixelated;                 /* Chrome */
-        image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
-        -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
+        image-rendering: optimizeSpeed;
+        image-rendering: -moz-crisp-edges;          /* Firefox       */
+        image-rendering: -o-crisp-edges;            /* Opera         */
+        image-rendering: -webkit-optimize-contrast; /* Safari        */
+        image-rendering: pixelated;                 /* Chrome        */
+        image-rendering: optimize-contrast;         /* CSS3 Proposed */
+        -ms-interpolation-mode: nearest-neighbor;   /* IE8+          */
         margin: 0;
         position: absolute;
       }
+      body {
+        margin: 0;
+        font-family: monospace;
+      }
+      #mainmenu {
+        padding: 1em;
+      }
     </style>
   </head>
-  <body style="margin:0;">
-    <div>welcome to the game</div></br>
+  <body>
+    <div id="mainmenu">
+      <input type="text" placeholder="SERVER URL"/><button id="connect">CONNECT</button>
+    </div></br>
     <div id="players"></div>
     <div id="display" style="background-color:green;"></div>
   </body>

@@ -26,6 +26,7 @@ io.on('connection', function(socket) {
     // Let the new player know about other players
     io.sockets.connected[socket.id].emit('player join', players[playerKey].info);
   }
+  
   // Add the new player to their client
   io.sockets.connected[socket.id].emit('player join', playerInfo);
 

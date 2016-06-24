@@ -4,8 +4,16 @@ var PIXEL_SIZE;
 var players = {};
 
 window.onload = function() {
+  document.getElementById("connect").onclick = function() {
+    document.getElementById("mainmenu").style.display = "none";
+    start(document.getElementById("connect").text);
+  }
+}
+
+function start(serverAddress) {
+  serverAddress = serverAddress || 'http://localhost:3000';
   PIXEL_SIZE = window.innerWidth / CANVAS_WIDTH;
-  var socket = io('http://localhost:3000');
+  var socket = io(serverAddress);
 
   // Player input
   var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d', 16:'shift'};
@@ -35,7 +43,6 @@ window.onload = function() {
   });
   socket.on('update player', function(playerInfo) {
     if (!document.getElementById(playerInfo.id)) return;
-    console.log(playerInfo);
     for (var playerAttr in playerInfo) {
       players[playerInfo.id][playerAttr] = playerInfo[playerAttr];
     }
