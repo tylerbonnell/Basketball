@@ -1,5 +1,5 @@
-var CANVAS_WIDTH = 350;
-var CANVAS_HEIGHT = 80;
+var CANVAS_WIDTH = 256;
+var CANVAS_HEIGHT = 198;
 var PIXEL_SIZE;
 var players = {};
 var socket;
@@ -13,11 +13,12 @@ window.onload = function() {
       document.getElementById("mainmenu").style.display = "none";
       start();
     });
-  }
-}
+  };
+};
 
 function start() {
-  PIXEL_SIZE = window.innerWidth / CANVAS_WIDTH;
+  PIXEL_SIZE = window.innerHeight / CANVAS_HEIGHT;
+  document.getElementById("all").style.backgroundColor = "#808080";
 
   // Player input
   var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d', 16:'shift'};
@@ -40,7 +41,7 @@ function start() {
   // Messages from server
   socket.on('player join', function(playerInfo) {
     players[playerInfo.id] = playerInfo;
-    addElement(playerInfo.id, "Images/player.png", playerInfo.x, playerInfo.y);
+    addElement(playerInfo.id, "Images/player1.png", playerInfo.x, playerInfo.y);
   });
   socket.on('player leave', function(playerInfo) {
     delete players[playerInfo.id];
@@ -54,8 +55,8 @@ function start() {
   });
 
   setInterval(function() {
-    document.getElementById("players").innerHTML = JSON.stringify(players);
-  }, 100);
+    console.log(players);
+  }, 5000);
 }
 
 function addElement(id, url, x, y) {
@@ -66,7 +67,7 @@ function addElement(id, url, x, y) {
     players[id].y = y;
     document.getElementById("display").innerHTML += "<img src=\"" + url + "\" id=\"" + id + "\" width=\"" + players[id].width + "\"/>";
     setPos(id, x, y);
-  }
+  };
   img.src = url;
 }
 
