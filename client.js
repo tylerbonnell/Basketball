@@ -18,7 +18,9 @@ window.onload = function() {
 
 function start() {
   PIXEL_SIZE = window.innerHeight / CANVAS_HEIGHT;
-  document.getElementById("all").style.backgroundColor = "#808080";
+  document.getElementById("bg").style.left =
+      Math.floor((window.innerWidth - CANVAS_WIDTH * PIXEL_SIZE) / 2) + "px";
+  document.getElementById("display").style.display = "block";
 
   // Player input
   var trackedKeys = {87:'w', 65:'a', 83:'s', 68:'d', 16:'shift'};
@@ -41,7 +43,7 @@ function start() {
   // Messages from server
   socket.on('player join', function(playerInfo) {
     players[playerInfo.id] = playerInfo;
-    addElement(playerInfo.id, "Images/player1.png", playerInfo.x, playerInfo.y);
+    addElement(playerInfo.id, "Images/player1_0.png", playerInfo.x, playerInfo.y);
   });
   socket.on('player leave', function(playerInfo) {
     delete players[playerInfo.id];

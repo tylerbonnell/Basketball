@@ -15,18 +15,20 @@
         image-rendering: optimize-contrast;         /* CSS3 Proposed */
         -ms-interpolation-mode: nearest-neighbor;   /* IE8+          */
         margin: 0;
-        position: absolute;
+        position: relative;
       }
       body {
         margin: 0;
         font-family: monospace;
+        background-color: #808080;
       }
       #mainmenu { padding: 1em; }
       #connect { margin-bottom: .5em; }
-      #connecting { display: none; }
+      #connecting, #display { display: none; }
+      #bg { position: absolute; }
     </style>
   </head>
-  <body id="all">
+  <body>
     <div id="mainmenu">
       <input type="text" placeholder="SERVER URL"/><button id="connect">CONNECT</button>
       <div id="connecting">
@@ -34,6 +36,6 @@
       </div>
     </div>
     <div id="players"></div>
-    <div id="display"><img id="bg" src="Images/background.png" height="100%"/></div>
+    <div id="display" height="100%"><img id="bg" src="Images/background.png" height="100%"/></div>
   </body>
 </html>
