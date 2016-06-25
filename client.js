@@ -1,6 +1,7 @@
 var CANVAS_WIDTH = 256;
 var CANVAS_HEIGHT = 198;
 var PIXEL_SIZE;
+var LEFT_OFFSET;
 var players = {};
 var socket;
 
@@ -18,8 +19,8 @@ window.onload = function() {
 
 function start() {
   PIXEL_SIZE = window.innerHeight / CANVAS_HEIGHT;
-  document.getElementById("bg").style.left =
-      Math.floor((window.innerWidth - CANVAS_WIDTH * PIXEL_SIZE) / 2) + "px";
+  LEFT_OFFSET = Math.floor((window.innerWidth - CANVAS_WIDTH * PIXEL_SIZE) / 2)
+  document.getElementById("bg").style.left = LEFT_OFFSET + "px";
   document.getElementById("display").style.display = "block";
 
   // Player input
@@ -74,6 +75,6 @@ function addElement(id, url, x, y) {
 }
 
 function setPos(id, x, y) {
-  document.getElementById(id).style.left = x * PIXEL_SIZE + "px";
+  document.getElementById(id).style.left = LEFT_OFFSET + x * PIXEL_SIZE + "px";
   document.getElementById(id).style.top = y * PIXEL_SIZE + "px";
 }
