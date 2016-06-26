@@ -1,6 +1,6 @@
 var CANVAS_WIDTH = 256;
 var CANVAS_HEIGHT = 198;
-var FRAMERATE = 200;
+var FRAMERATE = 120;
 var PIXEL_SIZE;
 var LEFT_OFFSET;
 var players = {};
@@ -68,7 +68,6 @@ function start() {
 function setAnimationState(state) {
   if (players[state.id].animationState == state.state) return;
   players[state.id].animationState = state.state;
-  console.log("set state to " + state.state);
   if (state.state == "standing") {
     var frames = ["Images/player1_0.png"];
   } else if (state.state == "running") {
